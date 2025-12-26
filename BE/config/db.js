@@ -1,0 +1,7 @@
+import mongoose from "mongoose";
+
+export const dbConnection = () => {
+    mongoose.connect(process.env.DB_URL)
+        .then((res) => console.log("DB Connected"))
+        .catch((err) => console.log("error connecting to db", err))
+}
