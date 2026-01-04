@@ -6,6 +6,8 @@ import {configDotenv} from 'dotenv';
 import messageRouter from './routes/message.route.js';
 import cors from 'cors';
 import { Server } from 'socket.io';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './swagger.js';
 
 const app = express();
 
@@ -13,6 +15,13 @@ configDotenv();
 app.use(cors());
 
 app.use(express.json())
+
+// Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  swaggerOptions: {
+    persistAuthorizationData: true
+  }
+}));
 
 app.use('/auth', authRouter)
 app.use('/users', userRouter)
